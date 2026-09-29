@@ -1074,8 +1074,23 @@ var IL_HOST = {
 
   /* TODO: connect to your backend (Supabase, a Vercel API route, MailerLite...).
      Return the real waitlist position and invite code from the server. */
-  function submitWaitlist(data) {
-    return Promise.resolve({ position: null, code: null });
+  async function submitWaitlist(data) {
+    var response = await fetch("/api/waitlist", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        full_name: data.name,
+        email: data.email,
+        occupation: data.occupation || null,
+        instagram: data.instagram || null,
+        membership_interest: data.interest || "innerly",
+        consent: !!data.consent,
+        language: data.lang || "en"
+      })
+    });
+    var result = await response.json().catch(function () { return {}; });
+    if (!response.ok) throw new Error(result.error || "Could not join the waitlist.");
+    return result;
   }
 
   /* ---------- member: done ---------- */
