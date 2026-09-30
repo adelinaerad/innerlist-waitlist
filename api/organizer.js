@@ -101,11 +101,11 @@ export default async function handler(req, res) {
         supabaseResponse.status,
         detail
       );
-
-      return res.status(502).json({
-        error: 'Could not save your application.'
-      });
-    }
+return res.status(502).json({
+  error: 'Could not save your application.',
+  supabase_status: supabaseResponse.status,
+  supabase_detail: detail
+});
 
     const inserted = await supabaseResponse.json();
     const application = inserted?.[0];
