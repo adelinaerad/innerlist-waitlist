@@ -71,12 +71,12 @@ module.exports = async function handler(req, res) {
       `${SUPABASE_URL}/rest/v1/organizer_applications`,
       {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          apikey: SUPABASE_PUBLISHABLE_KEY,
-          Authorization: `Bearer ${SUPABASE_PUBLISHABLE_KEY}`,
-          Prefer: 'return=representation'
-        },
+       headers: {
+  'Content-Type': 'application/json',
+  apikey: SUPABASE_PUBLISHABLE_KEY,
+  Authorization: `Bearer ${SUPABASE_PUBLISHABLE_KEY}`,
+  Prefer: 'return=minimal'
+},
         body: JSON.stringify({
           organizer_type,
           organization_name,
@@ -107,9 +107,6 @@ module.exports = async function handler(req, res) {
            supabase_detail: detail
         });
       }
-
-    const inserted = await supabaseResponse.json();
-    const application = inserted?.[0];
 
     // 2. SEND CONFIRMATION EMAIL
     const firstName = contact_name.split(' ')[0];
