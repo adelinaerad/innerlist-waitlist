@@ -227,14 +227,14 @@ module.exports = async function handler(req, res) {
       // Application is already stored, so don't fail the application.
       return res.status(201).json({
         ok: true,
-        application_id: application?.id || null,
+        application_id: null,
         email_sent: false
       });
     }
 
     return res.status(201).json({
       ok: true,
-      application_id: application?.id || null,
+      application_id: null,
       email_sent: true
     });
 
